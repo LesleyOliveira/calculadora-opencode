@@ -23,6 +23,7 @@ There is **no** test runner, linter, formatter or typechecker configured. The RE
 
 ## Conventions and gotchas
 
+- Comente o código em português.
 - Components: PascalCase filenames, `export default function`. Utils: named exports.
 - `Botao` invokes `onClick(valor)`, so every handler receives the button label as its argument.
 - Adding an operator requires three coordinated edits: implement it in `operacoes.js`, add it to `OPERADORES`, and handle it in `calcular()` in `App.jsx`. All four (`+`, `-`, `×`, `÷`) are wired up; the button label doubles as the operator key.
