@@ -9,7 +9,16 @@ const OPERADORES = ['+', '-', '×', '÷']
 
 const ERRO = 'Erro'
 
+/**
+ * Executa uma operação entre dois números já convertidos.
+ *
+ * @param {number} a Operando "anterior", guardado no estado.
+ * @param {number} b Operando atual, exibido no display.
+ * @param {string} operador Rótulo do botão: '+', '-', '×' ou '÷'.
+ * @returns {number|null} Resultado arredondado, ou null em divisão por zero.
+ */
 function calcular(a, b, operador) {
+  // O rótulo do botão é a própria chave do operador (ver OPERADORES).
   switch (operador) {
     case '+':
       return arredondar(somar(a, b))
@@ -17,9 +26,11 @@ function calcular(a, b, operador) {
       return arredondar(subtrair(a, b))
     case '×':
       return arredondar(multiplicar(a, b))
+    // dividir() devolve null para divisor zero; arredondar() repassa o null.
     case '÷':
       return arredondar(dividir(a, b))
     default:
+      // Fallback defensivo: operador desconhecido mantém o número digitado.
       return b
   }
 }
