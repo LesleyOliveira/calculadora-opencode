@@ -6,6 +6,12 @@ export function subtrair(a, b) {
   return a - b
 }
 
-// TODO: implementar multiplicar(a, b)
+export function multiplicar(a, b) {
+  return a * b
+}
 
-// TODO: implementar dividir(a, b) — cuidado com divisão por zero!
+// Retorna null quando o divisor é zero; o App traduz isso para "Erro" no display.
+export function dividir(a, b) {
+  if (b === 0) return null
+  return a / b
+}
