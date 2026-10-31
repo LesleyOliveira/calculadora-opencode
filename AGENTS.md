@@ -16,8 +16,8 @@ There is **no** test runner, linter, formatter or typechecker configured. The RE
 ## Structure
 
 - `src/main.jsx` — entrypoint; mounts `<App />` into `#root` under StrictMode and imports the only stylesheet.
-- `src/App.jsx` — owns all state (`display`, `anterior`, `operador`, `novoNumero`) and keypad wiring.
-- `src/components/Display.jsx`, `src/components/Botao.jsx` — presentational only.
+- `src/App.jsx` — owns all state (`display`, `anterior`, `operador`, `novoNumero`, `historico`) and keypad wiring.
+- `src/components/Display.jsx`, `src/components/Historico.jsx`, `src/components/Botao.jsx` — presentational only.
 - `src/utils/operacoes.js` — pure arithmetic functions.
 - `src/index.css` — single global stylesheet with plain classes (no CSS modules, no Tailwind).
 
@@ -31,4 +31,4 @@ There is **no** test runner, linter, formatter or typechecker configured. The RE
 - The decimal point uses its own `digitarPonto`, not `digitarNumero`: with `novoNumero` it starts `"0."`, otherwise it appends `.` only if `display` has no `.` yet (one point per number). Numbers are read with `Number()`, so trailing dots like `"5."` are fine.
 - `dividir` returns `null` for division by zero; `App` renders that as `"Erro"` and resets the pending operation.
 - `arredondar` (in `operacoes.js`) caps results at 12 significant digits, so floating-point noise like `0.1 + 0.2` shows as `0.3`. `calcular()` in `App.jsx` wraps every operation with it; `null` and non-finite values pass through untouched.
-- Known TODO: operation history in `App.jsx`.
+- Histórico: `App` guarda no máximo 3 expressões (`"2 + 3 = 5"`) em ordem cronológica (mais recente por último) via `registrar()`, que faz `slice(-3)`. Registra em `igual()` e também no resultado intermediário de `escolherOperador()`. `Erro` e o botão `C` **não** apagam o histórico; só novas operações o empurram. `Historico.jsx` sempre renderiza o `<ul>` porque o CSS reserva a altura de 3 linhas.
