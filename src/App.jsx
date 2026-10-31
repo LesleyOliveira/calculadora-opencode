@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Display from './components/Display.jsx'
 import Botao from './components/Botao.jsx'
-import { somar, subtrair, multiplicar, dividir } from './utils/operacoes.js'
+import { somar, subtrair, multiplicar, dividir, arredondar } from './utils/operacoes.js'
 
 const NUMEROS = ['7', '8', '9', '4', '5', '6', '1', '2', '3', '0']
 
@@ -12,13 +12,13 @@ const ERRO = 'Erro'
 function calcular(a, b, operador) {
   switch (operador) {
     case '+':
-      return somar(a, b)
+      return arredondar(somar(a, b))
     case '-':
-      return subtrair(a, b)
+      return arredondar(subtrair(a, b))
     case '×':
-      return multiplicar(a, b)
+      return arredondar(multiplicar(a, b))
     case '÷':
-      return dividir(a, b)
+      return arredondar(dividir(a, b))
     default:
       return b
   }
@@ -44,6 +44,17 @@ export default function App() {
     } else {
       setDisplay(display === '0' ? n : display + n)
     }
+  }
+
+  function digitarPonto() {
+    if (novoNumero) {
+      setDisplay('0.')
+      setNovoNumero(false)
+      return
+    }
+    // Só um ponto por número: display guarda apenas o número em edição.
+    if (display.includes('.')) return
+    setDisplay(display + '.')
   }
 
   function escolherOperador(op) {
@@ -84,7 +95,6 @@ export default function App() {
     setNovoNumero(true)
   }
 
-  // TODO: botão de ponto decimal ('.')
   // TODO: histórico de operações
 
   return (
@@ -96,6 +106,7 @@ export default function App() {
           {NUMEROS.map((n) => (
             <Botao key={n} valor={n} onClick={digitarNumero} />
           ))}
+          <Botao valor="." onClick={digitarPonto} />
           <Botao valor="C" onClick={limpar} tipo="limpar" />
           <Botao valor="=" onClick={igual} tipo="igual" />
         </div>

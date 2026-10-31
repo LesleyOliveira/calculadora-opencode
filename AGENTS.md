@@ -27,5 +27,7 @@ There is **no** test runner, linter, formatter or typechecker configured. The RE
 - `Botao` invokes `onClick(valor)`, so every handler receives the button label as its argument.
 - Adding an operator requires three coordinated edits: implement it in `operacoes.js`, add it to `OPERADORES`, and handle it in `calcular()` in `App.jsx`. All four (`+`, `-`, `×`, `÷`) are wired up; the button label doubles as the operator key.
 - Input handling is a flag-based state machine, not an expression parser: `novoNumero` decides replace-vs-append for digits, while `anterior`/`operador` hold the pending operation.
+- The decimal point uses its own `digitarPonto`, not `digitarNumero`: with `novoNumero` it starts `"0."`, otherwise it appends `.` only if `display` has no `.` yet (one point per number). Numbers are read with `Number()`, so trailing dots like `"5."` are fine.
 - `dividir` returns `null` for division by zero; `App` renders that as `"Erro"` and resets the pending operation.
-- Known TODOs: decimal point button and operation history in `App.jsx`.
+- `arredondar` (in `operacoes.js`) caps results at 12 significant digits, so floating-point noise like `0.1 + 0.2` shows as `0.3`. `calcular()` in `App.jsx` wraps every operation with it; `null` and non-finite values pass through untouched.
+- Known TODO: operation history in `App.jsx`.

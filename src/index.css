@@ -45,5 +45,5 @@ h1 { margin: 0 0 12px; font-size: 1.2rem; text-align: center; }
 }
 .botao:hover { filter: brightness(1.2); }
 .botao-operador { background: #fab387; color: #1e1e2e; }
-.botao-igual { background: #a6e3a1; color: #1e1e2e; }
+.botao-igual { background: #a6e3a1; color: #1e1e2e; grid-column: 1 / -1; }
 .botao-limpar { background: #f38ba8; color: #1e1e2e; }
